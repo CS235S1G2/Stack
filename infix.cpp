@@ -9,51 +9,102 @@
 ************************************************************************/
 
 #include "infix.h"
+#include "stack.h"
 #include <string>
 using namespace std;
-	/*****************************************************
-	 * TEST INFIX TO POSTFIX
-	 * Prompt the user for infix text and display the
-	 * equivalent postfix expression
-	 *****************************************************/
-	void testInfixToPostfix()
-	{
-		// The Infix expression which the user inputs
-		string input;
-		
-		char token, topToken;
-		Stack<char> opStack;
 
-		// The postFix expressoin
-		string postFixExp;
+/*****************************************************
+ * ITERATE STRING
+ * Accepts a Stack and a String to assist in converting
+ * infix equations to postfix
+ *****************************************************/
+ void iterateString(Stack <char> &ops, string input, int i)
+ {
+      string inParen;
+      
+      // iterate through string
+   for (; i < input.length(); i++)
+   {
+      switch(input[i])
+      {
+         // standard ops
+         case '+':
+            ops.push(input[i]);
+            break;
+         case '-':
+            ops.push(input[i]);
+            break;         
+         case '*':
+            ops.push(input[i]);
+            break;         
+         case '/':
+            ops.push(input[i]);
+            break;
+         // exponent
+         case '^':
+            ops.push(input[i]);
+            break;
+         // parenthesis - repeat this process until ')' update i
+         case '(':
+            // continue until ')'
+            for (; input[i] == ')'; i++)
+            {
+               inParen += input[i];
+            }
+            iterateString(ops, inParen, i);
+         // space
+         case ' ':
+            break;
+         default:
+            cout << input[i] << " ";
+      }
+   }
 
-		const string BLANK = " ";
-		for (int i = 0; i < input.length(); i++)
-		{
-			token = input[i];
-			switch (token)
-			{
-			case '*': break;
-			default: break;
+   while (!ops.empty())
+   {
+      cout << ops.top();
+      ops.pop();
+   }
+ }
 
-			}
+/*****************************************************
+ * TEST INFIX TO POSTFIX
+ * Prompt the user for infix text and display the
+ * equivalent postfix expression
+ *****************************************************/
+void testInfixToPostfix()
+{
+   string input;
+   int i = 0;
+   Stack <char> ops;
 
-		}
+   cout << "Enter an infix equation.  Type \"quit\" when done.\n";
+        
+   
+   do
+   {
+      cout << "infix > ";
+      getline(cin, input);
+      if (input == "quit")
+         break;
+      cout << "\tpostfix:  ";
 
-		cout << "Enter an infix equation. Type \"quit\" when done."
-			<< "\ninfix > ";
-		getline(cin, input);
-		
-	}
+      // iterate through string
+      iterateString(ops, input, i);
 
-	/*****************************************************
-	 * TEST INFIX TO ASSEMBLY
-	 * Prompt the user for infix text and display the
-	 * resulting assembly instructions
-	 *****************************************************/
-	void testInfixToAssembly()
-	{
+      cout << endl << endl;
+      ops.clear();
+      i = 0;
+   } while (input != "quit");
 
-	}
+}
 
+/*****************************************************
+ * TEST INFIX TO ASSEMBLY
+ * Prompt the user for infix text and display the
+ * resulting assembly instructions
+ *****************************************************/
+void testInfixToAssembly()
+{
 
+}
