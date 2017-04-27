@@ -3,13 +3,12 @@
 *    Stack
 * Summary:
 *    This class contains the notion of a stack: a container
-*    that expands as more items are put inside.
+*    that follows First In Last Out and expands as more items are put inside.
 *
 *    This will contain the class definition of:
 *        Stack         : A class that holds stuff
-*        StackIterator : An interator through Stack
 * Author
-*    Nathan Bench, Justin Chandler, Jeremy Chandler
+*    Nathan Bench, Jed Billman, Justin Chandler, Jeremy Chandler
 ************************************************************************/
 
 #ifndef STACK_H
@@ -17,14 +16,6 @@
 
 #include <cassert>
 #include <new>
-
-// forward declaration for StackIterator
-template <class T>
-class StackIterator;
-
-// forward declaration for StackConstIterator
-template <class T>
-class StackConstIterator;
 
 /************************************************
  * STACK
@@ -35,7 +26,7 @@ class Stack
 {
 public:
    // default constructor : empty and kinda useless
-   Stack() : numItems(0), vCapacity(0), data(NULL) {}
+   Stack() : m_top(0), m_capacity(0), m_data(NULL) {}
 
    // copy constructor : copy it
    Stack(const Stack & rhs) throw (const char *);
@@ -44,19 +35,19 @@ public:
    Stack(int capacity) throw (const char *);
    
    // destructor : free everything
-   ~Stack()        { if (vCapacity) delete [] data; }
+   ~Stack()        { if (m_capacity) delete [] m_data; }
    
    // is the container currently empty
-   bool empty() const  { return numItems == 0;         }
+   bool empty() const  { return m_top == 0;         }
 
    // remove all the items from the container
-   void clear()        { numItems = 0;                 }
+   void clear()        { m_top = 0;                 }
 
    // how many items can the stack currently contain?
-   int capacity() const { return vCapacity;             }
+   int capacity() const { return m_capacity;             }
    
    // how many items are currently in the container?
-   int size() const    { return numItems;              }
+   int size() const    { return m_top;              }
 
    // increase the capacity
    void increaseCapacity();
@@ -70,29 +61,14 @@ public:
    // Returns the item currently at the end of the stack
    T & top() throw (const char *);
    
-   // look up an item using the array index operator '[]'
-   T & operator [] (int index) throw (const char *);
-   const T & operator [] (int index) const throw (const char *);
-   
    // assignment operator '='
    Stack<T> & operator = (const Stack <T> & rhs);
    
-   // return an iterator to the beginning of the stack
-   StackIterator <T> begin() { return StackIterator<T>(data); }
-
-   // return an iterator to the end of the stack
-   StackIterator <T> end() { return StackIterator<T>(data + numItems);}
-   
-   // return a constant iterator to the beginning of the stack
-   StackConstIterator <T> cbegin() const { return StackConstIterator<T>(data); }
-   
-   // return a constant iterator to the end of the stack
-   StackConstIterator <T> cend() const   { return StackConstIterator<T>(data + numItems); }
    
 private:
-   T * data;          // dynamically allocated array of T
-   int numItems;      // how many items are currently in the Stack?
-   int vCapacity;      // how many items can I put on the Stack before full?
+   T * m_data;          // dynamically allocated array of T
+   int m_top;      // how many items are currently in the Stack?
+   int m_capacity;      // how many items can I put on the Stack before full?
 };
 
 
@@ -102,20 +78,20 @@ private:
 template <class T>
 Stack <T> :: Stack(const Stack <T> & rhs) throw (const char *)
 {
-   assert(rhs.vCapacity >= 0);
+   assert(rhs.m_capacity >= 0);
       
    // do nothing if there is nothing to do
-   if (rhs.vCapacity == 0)
+   if (rhs.m_capacity == 0)
    {
-      vCapacity = numItems = 0;
-      data = NULL;
+      m_capacity = m_top = 0;
+      m_data = NULL;
       return;
    }
 
    // attempt to allocate
    try
    {
-      data = new T[rhs.vCapacity];
+      m_data = new T[rhs.m_capacity];
    }
    catch (std::bad_alloc)
    {
@@ -123,17 +99,17 @@ Stack <T> :: Stack(const Stack <T> & rhs) throw (const char *)
    }
    
    // copy over the capacity and size
-   assert(rhs.numItems >= 0 && rhs.numItems <= rhs.vCapacity);
-   vCapacity = rhs.vCapacity;
-   numItems = rhs.numItems;
+   assert(rhs.m_top >= 0 && rhs.m_top <= rhs.m_capacity);
+   m_capacity = rhs.m_capacity;
+   m_top = rhs.m_top;
 
    // copy the items over one at a time using the assignment operator
-   for (int i = 0; i < numItems; i++)
-      data[i] = rhs.data[i];
+   for (int i = 0; i < m_top; i++)
+      m_data[i] = rhs.m_data[i];
 
    // the rest needs to be filled with the default value for T
-   for (int i = numItems; i < vCapacity; i++)
-      data[i] = T();
+   for (int i = m_top; i < m_capacity; i++)
+      m_data[i] = T();
 }
 
 /**********************************************
@@ -146,17 +122,17 @@ Stack <T> :: Stack(int capacity) throw (const char *)
    assert(capacity >= 0);
    
    // do nothing if there is nothing to do
-   if (vCapacity == 0)
+   if (m_capacity == 0)
    {
-      this->vCapacity = this->numItems = 0;
-      this->data = NULL;
+      this->m_capacity = this->m_top = 0;
+      this->m_data = NULL;
       return;
    }
 
    // attempt to allocate
    try
    {
-      data = new T[capacity];
+      m_data = new T[capacity];
    }
    catch (std::bad_alloc)
    {
@@ -165,18 +141,18 @@ Stack <T> :: Stack(int capacity) throw (const char *)
 
       
    // copy over the stuff
-   this->vCapacity = capacity;
-   this->numItems = 0;
+   this->m_capacity = capacity;
+   this->m_top = 0;
 
    // initialize the container by calling the default constructor
-   for (int i = 0; i < vCapacity; i++)
-      data[i] = T();
+   for (int i = 0; i < m_capacity; i++)
+      m_data[i] = T();
 }
 
 /******************************
-* INCREASE CAPACITY:
+* STACK :: INCREASE CAPACITY
 * This is used in conjunction
-* with the push_back function
+* with the push function
 * to increase the capacity of
 * the stack if the space is
 * insufficient.
@@ -184,20 +160,21 @@ Stack <T> :: Stack(int capacity) throw (const char *)
 template<class T>
 void Stack<T>::increaseCapacity()
 {
-	int newCap = vCapacity * 2;
-	if (vCapacity == 0)
+	int newCap = m_capacity * 2;
+	if (m_capacity == 0)
 		newCap = 1;
 	T *temp = new T[newCap];
-	for (int i = 0; i < vCapacity; ++i)
+	for (int i = 0; i < m_capacity; ++i)
 	{
-		temp[i] = data[i];
+		temp[i] = m_data[i];
 	}
-	vCapacity = newCap;
-	delete[] data;
-	data = temp;
+	m_capacity = newCap;
+	delete[] m_data;
+	m_data = temp;
 }
 
 /******************************
+* STACK :: PUSH
 * Adds an element to the end
 * of the stack and returns nothing.
 * If the stack is currently empty, then
@@ -212,12 +189,12 @@ void Stack<T>::push(const T & t) throw (const char *)
 	{
 		increaseCapacity();
 	}
-	if (vCapacity <= numItems)
+	if (m_capacity <= m_top)
 	{
 		increaseCapacity();
 	}
-	data[numItems] = t;
-	numItems++;
+	m_data[m_top] = t;
+	m_top++;
 }
 
 /***************************************************
@@ -229,7 +206,7 @@ inline void Stack<T>::pop() throw(const char *)
 {
 	if (empty())
 		throw "ERROR: Unable to pop from an empty Stack";
-	numItems--;
+	m_top--;
 }
 
 /***************************************************
@@ -240,39 +217,11 @@ template<class T>
 inline T & Stack<T>::top() throw(const char *)
 {
 	// if empty: throw Unable to reference the element from an empty Stack
-	if (empty() || (numItems < 0))
+	if (empty() || (m_top < 0))
 		throw "ERROR: Unable to reference the element from an empty Stack";
-	int j = numItems - 1;
-	return data[j];
-	numItems++;
-}
-
-/***************************************************
- * STACK :: []
- * Overload array index operator
- **************************************************/
-template <class T>
-T & Stack<T> :: operator [] (int index) throw (const char *)
-{
-   // return if index valid
-   if (index >= 0 && index < numItems)
-      return data[index];
-   // throw invalid index
-   throw "ERROR: Invalid index";
-}
-
-/***************************************************
- * STACK :: [] const
- * Overload array index operator
- **************************************************/
-template <class T>
-const T & Stack <T> :: operator [] (int index) const throw (const char *)
-{
-   // return if index valid
-   if (index >= 0 && index < numItems)
-      return data[index];
-   // throw invalid index
-   throw "ERROR: Invalid index";
+	int j = m_top - 1;
+	return m_data[j];
+	m_top++;
 }
 
 /***************************************************
@@ -285,27 +234,27 @@ Stack<T> & Stack <T> :: operator = (const Stack <T> & rhs)
    // don't copy yourself
    if (this != &rhs)
    {
-      // clean up data
-      if (data)
-         delete [] data;
+      // clean up m_data
+      if (m_data)
+         delete [] m_data;
       
       // assign each member variable to right-hand-side
-      vCapacity = rhs.vCapacity;
-      numItems = rhs.numItems;
+      m_capacity = rhs.m_capacity;
+      m_top = rhs.m_top;
       
       // allocate new array
       try
       {
-         data = new T[vCapacity];
+         m_data = new T[m_capacity];
       }
       catch (std::bad_alloc)
       {
          throw "ERROR: Unable to allocate a new buffer for Stack";
       }
       // copy over values from rhs
-      for (int i = 0; i < rhs.numItems; i++)
+      for (int i = 0; i < rhs.m_top; i++)
       {
-         data[i] = rhs.data[i];
+         m_data[i] = rhs.m_data[i];
       }
       
       return *this;
