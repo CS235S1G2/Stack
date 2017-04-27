@@ -3,11 +3,15 @@
 #     Week 02, STACK
 #     Brother Jonesl, CS235
 # Author:
-#     <your name here>
+#     Nathan Bench, Jed Billman, Jeremy Chandler, Justin Chandler
 # Summary:
-#     <put a description here>
+#     Implementation of the Stack class and Infix class
 # Time:
-#     <how long did it take to complete this program>?
+#     Nate: 3 hours
+#     Jed:
+#     Jeremy:
+#     Justin:
+#     Total: 
 ###############################################################
 
 ##############################################################
