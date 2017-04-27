@@ -59,7 +59,7 @@ public:
    void pop() throw (const char *);
 
    // Returns the item currently at the end of the stack
-   T & top() throw (const char *);
+   T & top() const throw (const char *);
    
    // assignment operator '='
    Stack<T> & operator = (const Stack <T> & rhs);
@@ -149,47 +149,38 @@ Stack <T> :: Stack(int capacity) throw (const char *)
       m_data[i] = T();
 }
 
-/******************************
+/***************************************************
 * STACK :: INCREASE CAPACITY
-* This is used in conjunction
-* with the push function
-* to increase the capacity of
-* the stack if the space is
-* insufficient.
-*******************************/
+* Allocate memory for m_data
+**************************************************/
 template<class T>
 void Stack<T>::increaseCapacity()
 {
 	int newCap = m_capacity * 2;
+   
 	if (m_capacity == 0)
 		newCap = 1;
+   
 	T *temp = new T[newCap];
 	for (int i = 0; i < m_capacity; ++i)
 	{
 		temp[i] = m_data[i];
 	}
+   
 	m_capacity = newCap;
 	delete[] m_data;
 	m_data = temp;
 }
 
-/******************************
+/***************************************************
 * STACK :: PUSH
-* Adds an element to the end
-* of the stack and returns nothing.
-* If the stack is currently empty, then
-* the capacity is set to one. Otherwise,
-* if the stack is currently full,
-* then the capacity is doubled.
-*******************************/
+* Adds an item to the top of the stack
+**************************************************/
 template<class T>
 void Stack<T>::push(const T & t) throw (const char *)
 {
-	if (empty())
-	{
-		increaseCapacity();
-	}
-	if (m_capacity <= m_top)
+   // IF empty increase the capacity
+	if (empty() || m_capacity <= m_top)
 	{
 		increaseCapacity();
 	}
@@ -214,14 +205,12 @@ inline void Stack<T>::pop() throw(const char *)
 * Returns the item currently at the end of the stack
 **************************************************/
 template<class T>
-inline T & Stack<T>::top() throw(const char *)
+inline T & Stack<T>::top() const throw(const char *)
 {
 	// if empty: throw Unable to reference the element from an empty Stack
 	if (empty() || (m_top < 0))
 		throw "ERROR: Unable to reference the element from an empty Stack";
-	int j = m_top - 1;
-	return m_data[j];
-	m_top++;
+	return m_data[m_top - 1];
 }
 
 /***************************************************
@@ -262,4 +251,3 @@ Stack<T> & Stack <T> :: operator = (const Stack <T> & rhs)
 }
 
 #endif // STACK_H
-
