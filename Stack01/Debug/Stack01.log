@@ -1,42 +1,17 @@
 ﻿  infix.cpp
-c:\users\justi\source\repos\stack01\stack.h(41): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
-  c:\users\justi\source\repos\stack01\stack.h(96): note: see reference to class template instantiation 'Stack<T>' being compiled
-c:\users\justi\source\repos\stack01\stack.h(44): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
-c:\users\justi\source\repos\stack01\stack.h(65): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
-c:\users\justi\source\repos\stack01\stack.h(68): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
-c:\users\justi\source\repos\stack01\stack.h(71): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
-c:\users\justi\source\repos\stack01\stack.h(74): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
-c:\users\justi\source\repos\stack01\stack.h(75): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
-c:\users\justi\source\repos\stack01\stack.h(103): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
-c:\users\justi\source\repos\stack01\stack.h(144): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
-c:\users\justi\source\repos\stack01\stack.h(209): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
-c:\users\justi\source\repos\stack01\stack.h(228): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
-c:\users\justi\source\repos\stack01\stack.h(240): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
-c:\users\justi\source\repos\stack01\stack.h(255): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
-c:\users\justi\source\repos\stack01\stack.h(269): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
-c:\users\justi\source\repos\stack01\infix.cpp(31): warning C4018: '<': signed/unsigned mismatch
-c:\users\justi\source\repos\stack01\infix.cpp(24): warning C4101: 'topToken': unreferenced local variable
-  Generating Code...
-  Compiling...
-  week02.cpp
-c:\users\justi\source\repos\stack01\stack.h(41): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
-  c:\users\justi\source\repos\stack01\stack.h(96): note: see reference to class template instantiation 'Stack<T>' being compiled
-c:\users\justi\source\repos\stack01\stack.h(44): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
-c:\users\justi\source\repos\stack01\stack.h(65): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
-c:\users\justi\source\repos\stack01\stack.h(68): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
-c:\users\justi\source\repos\stack01\stack.h(71): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
-c:\users\justi\source\repos\stack01\stack.h(74): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
-c:\users\justi\source\repos\stack01\stack.h(75): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
-c:\users\justi\source\repos\stack01\stack.h(103): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
-c:\users\justi\source\repos\stack01\stack.h(144): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
-c:\users\justi\source\repos\stack01\stack.h(209): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
-c:\users\justi\source\repos\stack01\stack.h(228): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
-c:\users\justi\source\repos\stack01\stack.h(240): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
-c:\users\justi\source\repos\stack01\stack.h(255): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
-c:\users\justi\source\repos\stack01\stack.h(269): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
-c:\users\justi\source\repos\stack01\week02.cpp(196): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
-  Generating Code...
-c:\users\justi\source\repos\stack01\stack.h(313): warning C4715: 'Stack<int>::operator=': not all control paths return a value
-c:\users\justi\source\repos\stack01\stack.h(313): warning C4715: 'Stack<double>::operator=': not all control paths return a value
+c:\users\justi\source\repos\stack01\stack.h(32): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+  c:\users\justi\source\repos\stack01\stack.h(72): note: see reference to class template instantiation 'Stack<T>' being compiled
+c:\users\justi\source\repos\stack01\stack.h(35): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+c:\users\justi\source\repos\stack01\stack.h(56): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+c:\users\justi\source\repos\stack01\stack.h(59): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+c:\users\justi\source\repos\stack01\stack.h(62): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+c:\users\justi\source\repos\stack01\stack.h(79): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+c:\users\justi\source\repos\stack01\stack.h(120): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+c:\users\justi\source\repos\stack01\stack.h(186): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+c:\users\justi\source\repos\stack01\stack.h(205): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+c:\users\justi\source\repos\stack01\stack.h(217): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
+c:\users\justi\source\repos\stack01\infix.cpp(39): warning C4018: '<': signed/unsigned mismatch
+c:\users\justi\source\repos\stack01\stack.h(262): warning C4715: 'Stack<char>::operator=': not all control paths return a value
+cl : Command line warning D9028: minimal rebuild failure, reverting to normal build
   Stack01.vcxproj -> C:\Users\justi\Source\Repos\Stack01\Stack01\Debug\Stack01.exe
   Stack01.vcxproj -> C:\Users\justi\Source\Repos\Stack01\Stack01\Debug\Stack01.pdb (Partial PDB)
