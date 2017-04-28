@@ -28,8 +28,8 @@ void testInfixToPostfix()
 
 	// The postFix expressoin
 	string postFixExp;
-    // Recieving input from the user for infix expression
-	cout << "Enter an infix equation. Type \"quit\" when done.";
+	// Recieving input from the user for infix expression
+	cout << "Enter an infix equation.  Type \"quit\" when done.";
 	while (infixExp != "quit")
 	{
 		cout << "\ninfix > ";
@@ -53,21 +53,24 @@ void testInfixToPostfix()
 				postFixExp.append(BLANK + topToken);
 			}
 					  break;
-			case '^': //if(!opStack.empty() || opStack.top == '(')
-			{
-				topToken = opStack.top();
-				opStack.pop();
-				postFixExp.append(BLANK + topToken);
-			} // TODO add to here
-			break;
 			case '+':
 			case '-':
 			case '*':
 			case '/':
 			case '%':
+			case '^':
 				for (;;)
 				{
 					if (opStack.empty() ||
+						opStack.top() == '(' ||
+						(token == '^') &&
+						(opStack.top() == '+' || opStack.top() == '-' ||
+							opStack.top() == '*' || opStack.top() == '/' || opStack.top() == '%'))
+					{
+						opStack.push(token);
+						break;
+					}
+					else if (opStack.empty() ||
 						opStack.top() == '(' ||
 						(token == '*' || token == '/' || token == '%') &&
 						(opStack.top() == '+' || opStack.top() == '-'))
@@ -84,7 +87,12 @@ void testInfixToPostfix()
 				}
 				break;
 			default:
-				postFixExp.append(BLANK + token);
+				if (token == '.')
+				{
+					postFixExp.append(1, token);
+				}
+				else
+					postFixExp.append(BLANK + token);
 				for (;;)
 				{
 					if (!isalnum(infixExp[i + 1])) break; // end of identifier
@@ -116,22 +124,22 @@ void testInfixToPostfix()
 		}
 
 		// display results
-		cout << "postfix: " << postFixExp << "\n";
-
-		// reset variables
-		token, topToken = NULL;
-		opStack = NULL;
-		postFixExp = "";
+		if (infixExp != "quit")
+		{
+			cout << "\tpostfix: " << postFixExp << "\n";
+		}
+			// reset variables
+			token, topToken = '\n';
+			opStack.clear();
+			postFixExp = "";
+		}
 	}
-}
-	/*****************************************************
-	 * TEST INFIX TO ASSEMBLY
-	 * Prompt the user for infix text and display the
-	 * resulting assembly instructions
-	 *****************************************************/
-	void testInfixToAssembly()
-	{
+		/*****************************************************
+		 * TEST INFIX TO ASSEMBLY
+		 * Prompt the user for infix text and display the
+		 * resulting assembly instructions
+		 *****************************************************/
+		void testInfixToAssembly()
+		{
 
-	}
-
-
+		}

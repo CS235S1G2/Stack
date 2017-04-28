@@ -11,7 +11,5 @@ c:\users\justi\source\repos\stack01\stack.h(186): warning C4290: C++ exception s
 c:\users\justi\source\repos\stack01\stack.h(205): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
 c:\users\justi\source\repos\stack01\stack.h(217): warning C4290: C++ exception specification ignored except to indicate a function is not __declspec(nothrow)
 c:\users\justi\source\repos\stack01\infix.cpp(39): warning C4018: '<': signed/unsigned mismatch
-c:\users\justi\source\repos\stack01\stack.h(262): warning C4715: 'Stack<char>::operator=': not all control paths return a value
-cl : Command line warning D9028: minimal rebuild failure, reverting to normal build
   Stack01.vcxproj -> C:\Users\justi\Source\Repos\Stack01\Stack01\Debug\Stack01.exe
   Stack01.vcxproj -> C:\Users\justi\Source\Repos\Stack01\Stack01\Debug\Stack01.pdb (Partial PDB)
