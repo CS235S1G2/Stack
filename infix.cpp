@@ -23,37 +23,37 @@ using namespace std;
 void testInfixToPostfix()
 {
 	// The Infix expression which the user inputs
-	string infixExp;
+	string infixExression;
 
 	char token, topToken;
-	Stack<char> opStack;
-	const string BLANK = " ";
+	Stack<char> operatorStack;
+	const string SPACE = " ";
 
 	// The postFix expressoin
-	string postFixExp;
+	string postfixExpression;
 	// Recieving input from the user for infix expression
 	cout << "Enter an infix equation.  Type \"quit\" when done.";
-	while (infixExp != "quit")
+	while (infixExression != "quit")
 	{
 		cout << "\ninfix > ";
-		getline(cin, infixExp);
+		getline(cin, infixExression);
 
 		// To convert infix to postfix
-		for (int i = 0; i < infixExp.length(); i++)
+		for (int i = 0; i < infixExression.length(); i++)
 		{
-			token = infixExp[i];
+			token = infixExression[i];
 			switch (token)
 			{
 			case ' ': break; // do nothing with blanks
-			case '(': opStack.push(token);
+			case '(': operatorStack.push(token);
 				break;
 			case ')': for (;;)
 			{
-				assert(!opStack.empty());  // an open parenthesis is necessary
-				topToken = opStack.top();
-				opStack.pop();
+				assert(!operatorStack.empty());  // an open parenthesis needs to be placed before a closed parenthesis
+				topToken = operatorStack.top();
+				operatorStack.pop();
 				if (topToken == '(') break;
-				postFixExp.append(BLANK + topToken);
+				postfixExpression.append(SPACE + topToken);
 			}
             break;
 			case '+':
@@ -64,47 +64,47 @@ void testInfixToPostfix()
 			case '^':
 				for (;;)
 				{
-					if (opStack.empty() ||
-						opStack.top() == '(' ||
+					if (operatorStack.empty() ||
+						operatorStack.top() == '(' ||
 						(token == '^') &&
-						(opStack.top() == '+' || opStack.top() == '-' ||
-							opStack.top() == '*' || opStack.top() == '/' || opStack.top() == '%'))
+						(operatorStack.top() == '+' || operatorStack.top() == '-' ||
+							operatorStack.top() == '*' || operatorStack.top() == '/' || operatorStack.top() == '%'))
 					{
-						opStack.push(token);
+						operatorStack.push(token);
 						break;
 					}
-					else if (opStack.empty() ||
-						opStack.top() == '(' ||
+					else if (operatorStack.empty() ||
+						operatorStack.top() == '(' ||
 						(token == '*' || token == '/' || token == '%') &&
-						(opStack.top() == '+' || opStack.top() == '-'))
+						(operatorStack.top() == '+' || operatorStack.top() == '-'))
 					{
-						opStack.push(token);
+						operatorStack.push(token);
 						break;
 					}
 					else
 					{
-						topToken = opStack.top();
-						opStack.pop();
-						postFixExp.append(BLANK + topToken);
+						topToken = operatorStack.top();
+						operatorStack.pop();
+						postfixExpression.append(SPACE + topToken);
 					}
 				}
 				break;
 			default:
 				if (token == '.')
 				{
-               if (isalnum(infixExp[i - 1]))
-                  postFixExp.append(1, token);
+               if (isalnum(infixExression[i - 1]))
+                  postfixExpression.append(1, token);
                else
-                  postFixExp.append(BLANK + token);
+                  postfixExpression.append(SPACE + token);
 				}
 				else
-					postFixExp.append(BLANK + token);
+					postfixExpression.append(SPACE + token);
 				for (;;)
 				{
-					if (!isalnum(infixExp[i + 1])) break; // end of identifier
+					if (!isalnum(infixExression[i + 1])) break; // end of identifier
 					i++;
-					token = infixExp[i];
-					postFixExp.append(1, token);
+					token = infixExression[i];
+					postfixExpression.append(1, token);
 
 				}
 				break;
@@ -115,12 +115,12 @@ void testInfixToPostfix()
 		// pop remaining operators on the stack
 		for (;;)
 		{
-			if (opStack.empty()) break;
-			topToken = opStack.top();
-			opStack.pop();
+			if (operatorStack.empty()) break;
+			topToken = operatorStack.top();
+			operatorStack.pop();
 			if (topToken != '(')
 			{
-				postFixExp.append(BLANK + topToken);
+				postfixExpression.append(SPACE + topToken);
 			}
 			else
 			{
@@ -130,22 +130,23 @@ void testInfixToPostfix()
 		}
 
 		// display results
-		if (infixExp != "quit")
+		if (infixExression != "quit")
 		{
-			cout << "\tpostfix: " << postFixExp << "\n";
+			cout << "\tpostfix: " << postfixExpression << "\n";
 		}
 			// reset variables
 			token, topToken = '\n';
-			opStack.clear();
-			postFixExp = "";
+			operatorStack.clear();
+			postfixExpression = "";
 		}
 	}
-		/*****************************************************
-		 * TEST INFIX TO ASSEMBLY
-		 * Prompt the user for infix text and display the
-		 * resulting assembly instructions
-		 *****************************************************/
-		void testInfixToAssembly()
-		{
 
-		}
+/*****************************************************
+* TEST INFIX TO ASSEMBLY
+* Prompt the user for infix text and display the
+* resulting assembly instructions
+*****************************************************/
+void testInfixToAssembly()
+{
+
+}
